@@ -67,7 +67,7 @@ jobs:
           prerelease: true
           # Add this line to prevent it from looking for desktop artifacts
           uploadPlainBinary: true 
-          args: android build --target
+          args: android build
 
       - name: upload Android artifacts
         uses: softprops/action-gh-release@v2
