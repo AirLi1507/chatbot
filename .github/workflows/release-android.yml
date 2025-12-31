@@ -65,5 +65,3 @@ jobs:
           tagName: ${{ github.ref_name }}
           releaseName: "App ${{ github.ref_name }}"
           prerelease: true
-          # THE KEY FIX: Explicitly call 'android build' and specify targets
-          args: android build --target aarch64-linux-android,armv7-linux-androideabi,i686-linux-android,x86_64-linux-android
