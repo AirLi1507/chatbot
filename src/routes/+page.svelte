@@ -405,7 +405,7 @@
 				}
 			}
 			code {
-				@apply rounded-sm bg-black/7.5 px-1 dark:bg-white/10;
+				@apply rounded-sm bg-black/10 px-1 dark:bg-white/20;
 			}
 		}
 		li:last-of-type {
