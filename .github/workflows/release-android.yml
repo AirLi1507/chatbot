@@ -3,7 +3,7 @@ on:
   push:
     tags:
       - 'v*' # Triggers when you push a tag like v1.0.0-beta
-
+  workflow_dispatch: # This adds the "Run workflow" button in GitHub
 jobs:
   release:
     permissions:
