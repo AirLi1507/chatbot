@@ -203,7 +203,8 @@
 
     marked.use(markedKatex({
       throwOnError: false,
-      displayMode: true
+      displayMode:true,
+      output: "mathml" 
     }))
 
 		return await marked.parse(content);
