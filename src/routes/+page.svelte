@@ -111,7 +111,7 @@
 		msgArray = [
 			{
 				role: 'system',
-				content: 'Always respond in Markdown format. Use Katex for any mathematical-related text.'
+				content: 'Always respond in Markdown format. Always Use Katex format for any mathematical-related text.'
 			}
 		];
 		clearAlertOpen = false;
