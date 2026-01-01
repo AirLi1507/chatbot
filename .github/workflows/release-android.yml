@@ -2,8 +2,8 @@ name: Android Release
 on:
   push:
     tags:
-      - 'v*' # Triggers when you push a tag like v1.0.0-beta
-  workflow_dispatch: # Allows manual trigger from the Actions tab
+      - 'v*'
+  workflow_dispatch:
 
 jobs:
   release:
@@ -13,19 +13,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # 1. System Dependencies (Prevent gobject-sys error)
       - name: install system dependencies
-        # Even for Android, Tauri's build scripts check for these on Linux hosts
         run: |
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev
 
+      # 2. Setup Toolchains
       - name: setup bun
         uses: oven-sh/setup-bun@v2
 
       - name: setup rust
         uses: dtolnay/rust-toolchain@stable
         with:
-          # Required targets for a Universal APK
           targets: aarch64-linux-android, armv7-linux-androideabi, i686-linux-android, x86_64-linux-android
 
       - name: install Android SDK
@@ -37,17 +37,17 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
+      # 3. NDK Setup (Critical for Rust cross-compilation)
       - name: Setup NDK
-        # Matches standard path for setup-android action
         run: |
           echo "ANDROID_NDK_HOME=$ANDROID_SDK_ROOT/ndk-bundle" >> $GITHUB_ENV
           echo "NDK_HOME=$ANDROID_SDK_ROOT/ndk-bundle" >> $GITHUB_ENV
 
-      - name: install frontend dependencies
+      # 4. Build
+      - name: install dependencies
         run: bun install
 
       - name: prepare signing
-        # Ensure the directory exists before writing properties
         run: |
           mkdir -p src-tauri/gen/android
           cd src-tauri/gen/android
@@ -56,28 +56,15 @@ jobs:
           echo "${{ secrets.ANDROID_KEY_BASE64 }}" | base64 -d > release.jks
           echo "storeFile=release.jks" >> keystore.properties
 
-      - name: build and release
-        uses: tauri-apps/tauri-action@v0
+      - name: build android
+        run: bun tauri android build --release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NDK_HOME: ${{ env.ANDROID_NDK_HOME }}
-        with:
-          tagName: ${{ github.ref_name }}
-          releaseName: "App ${{ github.ref_name }}"
-          prerelease: true
-          # Add this line to prevent it from looking for desktop artifacts
-          uploadPlainBinary: true 
-          args: >
-            android build 
-            --target aarch64-linux-android 
-            --target armv7-linux-androideabi 
-            --target i686-linux-android 
-            --target x86_64-linux-android
 
-      - name: upload Android artifacts
+      # 5. Upload to GitHub Release
+      - name: upload release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          # This path points specifically to where Tauri/Gradle puts the universal APK
           files: |
             src-tauri/gen/android/app/build/outputs/apk/release/*.apk
