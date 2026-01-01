@@ -57,7 +57,7 @@ jobs:
           echo "storeFile=release.jks" >> keystore.properties
 
       - name: build android
-        run: bun tauri android build --release
+        run: bun tauri android build -- --release
         env:
           NDK_HOME: ${{ env.ANDROID_NDK_HOME }}
 
