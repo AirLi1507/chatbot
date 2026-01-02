@@ -121,8 +121,57 @@
   }
 }
 
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-smooth: unset;
+  /* Limited support */
+}
+
 svg path,
 svg circle,
 svg rect {
   stroke-width: 2px;
+}
+
+li>div {
+  :first-child {
+    @apply mt-1;
+  }
+
+  * {
+    @apply my-2;
+  }
+
+  ul {
+    @apply list-disc pl-4;
+  }
+
+  h1 {
+    @apply text-3xl;
+  }
+
+  h2 {
+    @apply text-2xl;
+  }
+
+  h3 {
+    @apply text-xl;
+  }
+
+  pre {
+    @apply w-fit max-w-full overflow-x-scroll rounded-lg border-2 border-white/50 p-3 dark:border-white/10;
+
+    code {
+      @apply rounded-none bg-transparent p-0;
+    }
+  }
+
+  code {
+    @apply rounded-sm bg-black/10 px-1 dark:bg-white/20;
+  }
+}
+
+div>li:last-of-type {
+  @apply border-b-0;
 }
