@@ -1,5 +1,5 @@
 import { get, writable } from "svelte/store";
-import { OpenAI } from "openai/client.js";
+import OpenAI from "openai";
 import type { ModelInfo } from "$lib/types/OpenAI";
 
 const client = writable<OpenAI | undefined>();
