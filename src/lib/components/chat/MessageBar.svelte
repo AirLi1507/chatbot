@@ -133,7 +133,7 @@
 		placeholder="Type your message..."
 		bind:value={$userMessage}
 		disabled={$messageLoading}
-		class="max-h-9 min-h-4 resize-none text-sm"
+		class="max-h-9 min-h-0 resize-none text-sm"
 		onkeydown={(e) => {
 			if (e.key === 'Enter' && !e.shiftKey && e.currentTarget.value.trim() !== '') {
 				sendMessage(new SubmitEvent('submit'));

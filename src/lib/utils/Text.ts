@@ -1,7 +1,6 @@
 import markedKatex from "marked-katex-extension";
 import { marked } from 'marked';
 import { createHighlighter, type Highlighter } from 'shiki';
-import DOMPurify from "dompurify";
 
 let highlighter: Highlighter
 
@@ -72,8 +71,7 @@ async function parseMarkdown(content: string) {
     }
   });
 
-  const htmlString: string = await marked.parse(content);
-  return DOMPurify.sanitize(htmlString);
+  return marked(content)
 }
 
 export {

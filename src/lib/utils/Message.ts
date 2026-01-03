@@ -6,7 +6,7 @@ import { clearAlertDialogOpen } from "$lib/stores/UI.ts"
 
 function loadMessages() {
   const roles = ["system", "assistant", "user"];
-  let arr = JSON.parse(localStorage.getItem("messages")!);
+  const arr = JSON.parse(localStorage.getItem("messages")!);
   if (
     Array.isArray(arr) &&
     arr.every(v =>
@@ -69,7 +69,6 @@ async function sendMessage(e: SubmitEvent) {
   } finally {
     localStorage.setItem("messages", JSON.stringify(get(messageArray)));
     messageLoading.set(false);
-    scrollToLatestMessage();
   }
 }
 

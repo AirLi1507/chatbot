@@ -3,7 +3,7 @@
   import MessageBar from '$lib/components/chat/MessageBar.svelte';
   import { unsubscribeSettings } from '$lib/stores/Settings';
 	import { unsubscribeClient } from '$lib/stores/OpenAI';
-  import { messageArray} from '$lib/stores/Message';
+  import { messageArray } from '$lib/stores/Message';
   import { loadSettings } from '$lib/utils/Settings';
 	import { loadMessages } from '$lib/utils/Message';
 	import { onDestroy, onMount } from 'svelte';
