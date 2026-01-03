@@ -5,7 +5,7 @@ import { createHighlighter, type Highlighter } from 'shiki';
 let highlighter: Highlighter
 
 const highlighterPromise = createHighlighter({
-  themes: ['catppuccin-mocha'],
+  themes: ['github-dark-high-contrast'],
   langs: [
     "html",
     "css",
@@ -65,7 +65,7 @@ async function parseMarkdown(content: string) {
       code({ text, lang }) {
         return highlighter.codeToHtml(text, {
           lang: lang || 'text',
-          theme: 'catppuccin-mocha'
+          theme: 'github-dark-high-contrast'
         });
       }
     }
