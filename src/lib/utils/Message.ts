@@ -57,9 +57,10 @@ async function sendMessage(e: SubmitEvent) {
     }]);
 
     for await (const chunk of chat) {
-      fullResponse += chunk.choices[0] ? (chunk.choices[0].delta.content || "") : "";
+      fullResponse += chunk.choices[0]?.delta.content || "";
       messageArray.update(m => [...m.slice(0, m.length - 1), { role: 'assistant', content: fullResponse }]);
       localStorage.setItem("messages", JSON.stringify(get(messageArray)));
+      scrollToLatestMessage(true);
     }
   } catch (err) {
     if (err instanceof Error) {
@@ -72,18 +73,19 @@ async function sendMessage(e: SubmitEvent) {
   }
 }
 
-function scrollToLatestMessage(instant?: true) {
-  const list = document.querySelector('ul');
-  if (list) {
-    list.scrollTo({
-      top: list.scrollHeight,
-      behavior: instant ? 'instant' : 'smooth'
-    });
-  }
+function scrollToLatestMessage(instant?: boolean) {
+  setTimeout(() => {
+    const list = document.querySelector('ul');
+    if (list) {
+      list.scrollTo({
+        top: list.scrollHeight,
+        behavior: instant ? 'instant' : 'smooth'
+      });
+    }
+  })
 }
 
 function clearHistory() {
-  console.log("CLEARED")
   messageArray.set([
     {
       role: "system",

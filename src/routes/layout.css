@@ -175,3 +175,11 @@ li>div {
 div>li:last-of-type {
   @apply border-b-0;
 }
+
+textarea {
+  scrollbar-width: none;
+}
+
+html {
+  scrollbar-color: gray black;
+}

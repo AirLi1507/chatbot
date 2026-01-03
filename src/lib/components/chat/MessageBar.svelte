@@ -27,6 +27,7 @@
 		SelectItem
 	} from '$lib/components/ui/select';
 	import Button from '$lib/components/ui/button/button.svelte';
+	import Input from '$lib/components/ui/input/input.svelte';
 	import Textarea from '../ui/textarea/textarea.svelte';
 	import BrushCleaning from '@lucide/svelte/icons/brush-cleaning';
 	import Settings from '@lucide/svelte/icons/settings';
@@ -98,7 +99,7 @@
 				/>
 				<Select type="single" bind:value={$prefModel}>
 					<SelectTrigger class="w-full">{$settings.prefModel}</SelectTrigger>
-					<SelectContent class="max-h-100">
+					<SelectContent class="h-75">
 						<SelectGroup>
 							<SelectLabel>Models</SelectLabel>
 							{#each $modelList as model, index (index)}
@@ -133,6 +134,11 @@
 		bind:value={$userMessage}
 		disabled={$messageLoading}
 		class="max-h-9 min-h-4 resize-none text-sm"
+		onkeydown={(e) => {
+			if (e.key === 'Enter' && !e.shiftKey && e.currentTarget.value.trim() !== '') {
+				sendMessage(new SubmitEvent('submit'));
+			}
+		}}
 	/>
 	<Button type="submit" disabled={$messageLoading}>
 		<Send />
