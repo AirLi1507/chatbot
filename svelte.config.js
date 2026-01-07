@@ -15,7 +15,10 @@ const config = {
 
   kit: {
     adapter: adapter({ fallback: 'index.html' }),
-    alias: { $lib: path.resolve('./src/lib') }
+    alias: {
+      $lib: path.resolve('./src/lib'),
+      $css: path.resolve('./src/routes/layout.css')
+    }
   },
 
   extensions: ['.svelte', '.svx']

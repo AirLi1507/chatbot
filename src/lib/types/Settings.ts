@@ -1,9 +1,9 @@
 export type Theme = 'light' | 'dark';
 
 export interface Settings {
-  prompt?: string;
-  apiKey: string;
-  baseUrl: string;
-  prefModel?: string;
-  theme: Theme;
+	apiKey: string;
+	baseUrl: string;
+	systemPrompt: string;
+	prefModel?: string;
+	theme: Theme;
 }

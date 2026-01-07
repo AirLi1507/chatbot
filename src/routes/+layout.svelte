@@ -4,6 +4,12 @@
 	const { children } = $props();
 </script>
 
-<div class="dark:bg-black dark:text-white">
-  {@render children()}
-</div>
+<div>{@render children()}</div>
+
+<style lang="postcss">
+	@reference "$css";
+
+	div {
+		@apply dark:bg-black dark:text-white;
+	}
+</style>

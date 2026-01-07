@@ -66,11 +66,11 @@
 	<Dialog
 		bind:open={$settingsDialogOpen}
 		onOpenChange={() => {
-			apiKey.set($settings.apiKey);
-			baseUrl.set($settings.baseUrl);
-			prefModel.set($settings.prefModel ?? 'gpt-3.5-turbo');
-			theme.set($settings.theme);
-			systemPrompt.set($settings.prompt!);
+			$apiKey = $settings.apiKey;
+			$baseUrl = $settings.baseUrl;
+			$prefModel = $settings.prefModel ?? 'gpt-3.5-turbo';
+			$theme = $settings.theme;
+			$systemPrompt = $settings.systemPrompt!;
 		}}
 	>
 		<DialogTrigger type="button">
@@ -108,6 +108,11 @@
 						</SelectGroup>
 					</SelectContent>
 				</Select>
+				<Textarea
+					bind:value={$systemPrompt}
+					placeholder="System prompt for chatbot."
+					class="max-h-40 min-h-0 resize-y"
+				/>
 				<Select type="single" bind:value={$theme}>
 					<SelectTrigger class="w-full">
 						{#if $theme === 'dark'}

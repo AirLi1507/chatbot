@@ -1,3 +1,3 @@
 export interface ModelInfo {
-  id: string
+	id: string;
 }
