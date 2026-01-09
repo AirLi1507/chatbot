@@ -1,15 +1,9 @@
 import type { Message } from '$lib/types/Message.ts';
-import { get, writable } from 'svelte/store';
-import { systemPrompt } from './Settings';
+import { writable } from 'svelte/store';
 
 const userMessage = writable<string>('');
 
-const messageArray = writable<Message[]>([
-	{
-		role: 'system',
-		content: get(systemPrompt)
-	}
-]);
+const messageArray = writable<Message[]>([]);
 
 const messageLoading = writable<boolean>(false);
 

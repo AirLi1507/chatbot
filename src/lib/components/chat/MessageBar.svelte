@@ -98,7 +98,7 @@
 					class="text-sm"
 				/>
 				<Select type="single" bind:value={$prefModel}>
-					<SelectTrigger class="w-full">{$settings.prefModel}</SelectTrigger>
+					<SelectTrigger class="w-full">{$prefModel}</SelectTrigger>
 					<SelectContent class="h-75">
 						<SelectGroup>
 							<SelectLabel>Models</SelectLabel>
