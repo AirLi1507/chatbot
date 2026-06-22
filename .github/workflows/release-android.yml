@@ -36,7 +36,7 @@ jobs:
         uses: android-actions/setup-android@v3
         with:
           # Explicitly request NDK if not present
-          packages: "ndk;26.1.10909125" 
+          packages: 'ndk;26.1.10909125'
 
       - name: install dependencies
         run: bun install
@@ -44,10 +44,10 @@ jobs:
       - name: prepare signing
         run: |
           mkdir -p src-tauri/gen/android/app
-          
+
           # Decode keystore
           echo "${{ secrets.ANDROID_KEY_BASE64 }}" | base64 -d > src-tauri/gen/android/app/release.jks
-          
+
           # Create properties file INSIDE the app folder
           cat <<EOT > src-tauri/gen/android/app/keystore.properties
           keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}

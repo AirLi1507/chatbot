@@ -27,42 +27,40 @@ const theme = writable<Theme>('light');
 const systemPrompt = writable<string>(defaultPrompt);
 
 const settings = writable<Settings>({
-  apiKey: get(apiKey),
-  baseUrl: get(baseUrl),
-  theme: get(theme),
-  systemPrompt: get(systemPrompt),
-  prefModel: get(prefModel)
+	apiKey: get(apiKey),
+	baseUrl: get(baseUrl),
+	theme: get(theme),
+	systemPrompt: get(systemPrompt),
+	prefModel: get(prefModel)
 });
 
 const unsubscribeSettings = settings.subscribe(async (s) => {
-  if (s.apiKey !== '') {
-    client.set(
-      new OpenAI({
-        apiKey: s.apiKey,
-        baseURL: s.baseUrl,
-        dangerouslyAllowBrowser: true
-      })
-    );
-  }
-  if (document) {
-    if (s.theme === 'dark') {
-      document.body.classList.add('dark');
-    } else {
-      document.body.classList.remove('dark');
-    }
-  }
-  messageArray.update((m) => 
-    [
-      {
-        role: 'system',
-        content: s.systemPrompt || defaultPrompt
-      },
-      ...m.slice(1)
-    ]
-  );
-  if (window) {
-    localStorage.setItem('messages', JSON.stringify(get(messageArray)));
-  }
+	if (s.apiKey !== '') {
+		client.set(
+			new OpenAI({
+				apiKey: s.apiKey,
+				baseURL: s.baseUrl,
+				dangerouslyAllowBrowser: true
+			})
+		);
+	}
+	if (document) {
+		if (s.theme === 'dark') {
+			document.body.classList.add('dark');
+		} else {
+			document.body.classList.remove('dark');
+		}
+	}
+	messageArray.update((m) => [
+		{
+			role: 'system',
+			content: s.systemPrompt || defaultPrompt
+		},
+		...m.slice(1)
+	]);
+	if (window) {
+		localStorage.setItem('messages', JSON.stringify(get(messageArray)));
+	}
 });
 
 export { apiKey, baseUrl, prefModel, theme, systemPrompt, settings, unsubscribeSettings };

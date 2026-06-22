@@ -9,19 +9,17 @@ import path from 'path';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-  preprocess: [
-    vitePreprocess()
-  ],
+	preprocess: [vitePreprocess()],
 
-  kit: {
-    adapter: adapter({ fallback: 'index.html' }),
-    alias: {
-      $lib: path.resolve('./src/lib'),
-      $css: path.resolve('./src/routes/layout.css')
-    }
-  },
+	kit: {
+		adapter: adapter({ fallback: 'index.html' }),
+		alias: {
+			$lib: path.resolve('./src/lib'),
+			$css: path.resolve('./src/routes/layout.css')
+		}
+	},
 
-  extensions: ['.svelte', '.svx']
+	extensions: ['.svelte', '.svx']
 };
 
 export default config;
